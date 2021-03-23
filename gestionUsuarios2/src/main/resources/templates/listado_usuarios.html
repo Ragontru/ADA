@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+      
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Estás en ver usuarios</title>
+    
+  </head>
+  <body>
+    <body>
+        hola
+      
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">nombre</th>
+          <th scope="col">password</th>
+          <th scope="col">observaciones</th>
+          <th scope="col">tareas</th>
+        </tr>
+      </thead>
+  
+  <tbody>
+               
+        <div th:each="usuario:${usuarios}">
+            <tr>
+              <th scope="row" th:text="${usuario.usuarioId}"></th>
+              <td th:text="${usuario.nombre}"></td>
+              <td th:text="${usuario.password}"></td>
+              <td th:text="${usuario.observaciones}"></td>
+              <td>
+                 <div th:each="tarea:${usuario.tareaList}">
+                    <p th:text="${tarea.nombre}"/>
+                 </div>
+              </td>
+            </tr>
+        </div>
+  
+  </tbody>
+  
+</table>
+        
+    </body>
+</html>
