@@ -8,7 +8,6 @@ package com.example.gestionUsuarios2.negocio.service;
 import com.example.gestionUsuarios2.negocio.entity.Tarea;
 import com.example.gestionUsuarios2.negocio.entity.Usuario;
 import com.example.gestionUsuarios2.repository.UsuarioRepository;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
