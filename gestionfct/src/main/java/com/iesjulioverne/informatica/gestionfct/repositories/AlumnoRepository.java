@@ -5,12 +5,11 @@
  */
 package com.iesjulioverne.informatica.gestionfct.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.iesjulioverne.informatica.gestionfct.entities.Alumno;
 import com.iesjulioverne.informatica.gestionfct.entities.Empresa;
 import java.util.List;
 import javax.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

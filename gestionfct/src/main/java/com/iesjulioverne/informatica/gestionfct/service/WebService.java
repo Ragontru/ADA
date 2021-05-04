@@ -84,7 +84,7 @@ public class WebService {
         empRepository.delete(empresa);
     }
     
-    public List<Empresa> verEmpresaNombre(Empresa empresa){
+    public Empresa verEmpresaNombre(Empresa empresa){
         return empRepository.verEmpresaNombre(empresa.getNombre());
     }
     

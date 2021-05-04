@@ -44,10 +44,10 @@ public class InicioController {
     public String crearAlumno (Model modelo){
         Alumno alumno = new Alumno();
         modelo.addAttribute("alumno", alumno);
-        Empresa empresa = service.getOneEmpresa();
-        modelo.addAttribute("empresa",empresa);
-        Tutor tutor = service.getTutor();
-        modelo.addAttribute("tutor",tutor);
+        List<Empresa> empresas = service.getEmpresas();
+        modelo.addAttribute("empresa",empresas);
+        List<Tutor> tutores = service.getTutores();
+        modelo.addAttribute("tutor",tutores);
         
         return "crear_alumno";       
     }
@@ -72,8 +72,8 @@ public class InicioController {
     public String editEmpresa(@PathVariable(value="id")Integer idAlumno, Model modelo){
         Alumno alumnoBase = service.getOneAlumno(idAlumno);
         modelo.addAttribute("alumno",alumnoBase);
-        Empresa empresa = service.getEmpresa();
-        modelo.addAttribute("empresa",empresa);
+        List<Empresa> empresas = service.getEmpresas();
+        modelo.addAttribute("empresa",empresas);
         
         System.out.println(alumnoBase.getNombre());
         return "/alumno_edit";
@@ -83,8 +83,8 @@ public class InicioController {
     public String editTutor(@PathVariable(value="id")Integer idAlumno, Model modelo){
         Alumno alumnoBase = service.getOneAlumno(idAlumno);
         modelo.addAttribute("alumno",alumnoBase);
-        Tutor tutor = service.getTutor();
-        modelo.addAttribute("tutor",tutor);
+        List<Tutor> tutores = service.getTutores();
+        modelo.addAttribute("tutor",tutores);
         
         System.out.println(alumnoBase.getNombre());
         return "/alumno_edit";
