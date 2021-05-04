@@ -33,6 +33,8 @@ public interface AlumnoRepository extends JpaRepository<Alumno, Integer> {
     @Modifying
     @Query("Update Alumno set nombre=?2 where idAlumno=?1")
     public void updateAlumno (Integer idAlu, String nombre);
+
+    public void update(Integer idAlumno, String nombre);
     
     
 }

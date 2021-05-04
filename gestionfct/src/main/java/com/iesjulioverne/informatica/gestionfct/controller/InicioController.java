@@ -15,7 +15,6 @@ import com.iesjulioverne.informatica.gestionfct.entities.Tutor;
 import com.iesjulioverne.informatica.gestionfct.service.WebService;
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -23,174 +22,153 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class InicioController {
-    
+
     private final WebService service;
-    
-    public InicioController (WebService gestService){
+
+    public InicioController(WebService gestService) {
         this.service = gestService;
     }
-    
+
+    // ---------- Peticiones de alumno ----------
     @RequestMapping("/")
     public String listarAlumnos(Model model) {
-        
+
         List<Alumno> alumnos = service.getAlumnos();
         model.addAttribute("alumnos", alumnos);
-        
+
         return "listar_alumnos";
     }
-    
-    // ---------- Peticiones de alumno ----------
+
     @RequestMapping("/crear_alumno")
-    public String crearAlumno (Model modelo){
+    public String crearAlumno(Model modelo) {
         Alumno alumno = new Alumno();
         modelo.addAttribute("alumno", alumno);
-        List<Empresa> empresas = service.getEmpresas();
-        modelo.addAttribute("empresa",empresas);
-        List<Tutor> tutores = service.getTutores();
-        modelo.addAttribute("tutor",tutores);
-        
-        return "crear_alumno";       
+        modelo.addAttribute("empresa", service.getEmpresas());
+        modelo.addAttribute("tutor", service.getTutores());
+
+        return "crear_alumno";
     }
-    
+
     @RequestMapping("/guardar_alumno")
-    public String guardarAlumno(Alumno alumno){
-        
-        System.out.println(alumno.getNombre());
-        service.guardarAlumno(alumno);
-        
-        return "redirect:/";
+    public String guardarAlumno(Alumno alumno) {
+
+        if (alumno.getIdEmpresa() == null || alumno.getIdTutor() == null) {
+            alumno.setIdEmpresa(new Empresa(1));
+            alumno.setIdTutor(new Tutor(1));
+            service.crearAlumno(alumno);
+            return "redirect:/";
+        } else {
+            System.out.println(alumno.getNombre());
+            service.crearAlumno(alumno);
+            return "redirect:/";
+        }
     }
-    
+
     @RequestMapping("borrar_alumno/{id}")
-    public String borrarAlumno(@PathVariable(value="id")Integer idAlumno){
+    public String borrarAlumno(@PathVariable(value = "id") Integer idAlumno) {
         Alumno alumno = new Alumno(idAlumno);
         service.borrarAlumno(alumno);
         return "redirect:/";
     }
-    
+
     @RequestMapping("/alumno_edit/{id}")
-    public String editEmpresa(@PathVariable(value="id")Integer idAlumno, Model modelo){
-        Alumno alumnoBase = service.getOneAlumno(idAlumno);
-        modelo.addAttribute("alumno",alumnoBase);
-        List<Empresa> empresas = service.getEmpresas();
-        modelo.addAttribute("empresa",empresas);
-        
+    public String editAlumno(@PathVariable(value = "id") Integer idAlumno, Model modelo) {
+        Alumno alumnoBase = service.getAlumno(idAlumno);
+        modelo.addAttribute("alumno", alumnoBase);
+        modelo.addAttribute("empresa", service.getEmpresas());
+        modelo.addAttribute("tutor", service.getTutores());
+
         System.out.println(alumnoBase.getNombre());
         return "/alumno_edit";
     }
-    
-    @RequestMapping("/alumno_edit/{id}")
-    public String editTutor(@PathVariable(value="id")Integer idAlumno, Model modelo){
-        Alumno alumnoBase = service.getOneAlumno(idAlumno);
-        modelo.addAttribute("alumno",alumnoBase);
-        List<Tutor> tutores = service.getTutores();
-        modelo.addAttribute("tutor",tutores);
-        
-        System.out.println(alumnoBase.getNombre());
-        return "/alumno_edit";
-    }
-    
-    @RequestMapping("/addE_alumno")
-    public String addEAlumno (Alumno alumno, @RequestParam Integer[] selectEmpresa){
-        alumno.addEmpresa(selectEmpresa);
-        service.guardarAlumno(alumno);
-        
-        return "redirect:/";
-    }
-    
+
     // ---------- Peticiones de tutor ----------
     @RequestMapping("/listar_tutores")
-    public String listarTutores(Model modelo){
+    public String listarTutores(Model modelo) {
         List<Tutor> tutores = service.getTutores();
-        modelo.addAttribute("tutores",tutores);
+        modelo.addAttribute("tutores", tutores);
         return "listar_tutores";
     }
-    
+
     @RequestMapping("/crear_tutor")
-    public String crearTutor(Model modelo){
+    public String crearTutor(Model modelo) {
         Tutor tutor = new Tutor();
-        modelo.addAttribute("tutor",tutor);
+        modelo.addAttribute("tutor", tutor);
         return "crear_tutor";
     }
-    
+
     @RequestMapping("/guardar_tutor")
-    public String guardarTutor(Tutor tutor){
-        service.guardarTutor(tutor);
+    public String guardarTutor(Tutor tutor) {
+        service.crearTutor(tutor);
         return "redirect:/listar_tutores";
     }
-    
+
     @RequestMapping("/borrar_tutor/{id}")
-    public String borrarTutor(@PathVariable(value="id") Integer idTutor, Model modelo){
+    public String borrarTutor(@PathVariable(value = "id") Integer idTutor, Model modelo) {
         Tutor tutor = new Tutor(idTutor);
+
+        List<Alumno> alumnos = service.getAlumnos();
+        for (int i = 0; i < alumnos.size(); i++) {
+            if (alumnos.get(i).getTutorIdTutor().getIdTutor() != tutor.getIdTutor()) {
+                alumnos.get(i).setTutorIdTutor(new Tutor(1));
+            }
+        }
+
         service.borrarTutor(tutor);
         return "redirect:/listar_tutores";
     }
-    /*
+
     @RequestMapping("/tutor_edit/{id}")
-    public String editTutor(@PathVariable(value="id") Integer idTutor, Model modelo){
-        Tutor tutorBase = service.getOneTutor(idTutor);
-        modelo.addAttribute("tutor",tutorBase);
+    public String editTutor(@PathVariable(value = "id") Integer idTutor, Model modelo) {
+        Tutor tutorBase = service.getTutor(idTutor);
+        modelo.addAttribute("tutor", tutorBase);
         System.out.println(tutorBase.getNombre());
         return "/tutor_edit";
     }
-    */
-    @RequestMapping("/act_tutor")
-    public String actTutor (Tutor tutor, @RequestParam Integer selectEmpresa){
-        tutor.setEmpresaidEmpresa(new Empresa(selectEmpresa));
-        service.guardarTutor(tutor);
-        return "redirect:/listar_tutores";
-    }
-    
-    // ---------- Peticiones de tutor ----------
+
+    // ---------- Peticiones de empresas ----------
     @RequestMapping("/listar_empresas")
-    public String listarEmpresas(Model modelo){
+    public String listarEmpresas(Model modelo) {
         List<Empresa> empresas = service.getEmpresas();
-        modelo.addAttribute("empresas",empresas);
+        modelo.addAttribute("empresas", empresas);
         return "/listar_empresas";
     }
-    
+
     @RequestMapping("/crear_empresa")
-    public String crearEmpresa(Model modelo){
+    public String crearEmpresa(Model modelo) {
         Empresa empresa = new Empresa();
-        modelo.addAttribute("empresa",empresa);
+        modelo.addAttribute("empresa", empresa);
         return "crear_empresa";
     }
-    
+
     @RequestMapping("/guardar_empresa")
-    public String guardaEmpresa(Empresa empresa){
-        service.guardarEmpresa(empresa);
+    public String guardaEmpresa(Empresa empresa) {
+        service.crearEmpresa(empresa);
         return "redirect:/";
     }
-    
-    @RequestMapping("empresa_edit/borrar_empresa/{id}")
-    public String borrarEmpresaEdit(@PathVariable(value="id") Integer idEmpresa){
-        Empresa empresa = new Empresa (idEmpresa);
-        service.borrarEmpresa(empresa);
-        return "redirect:/";
-    }
-    
+
     @RequestMapping("/borrar_empresa/{id}")
-    public String borrarEmpresa(@PathVariable(value="id") Integer idEmpresa){
-        Empresa empresa = service.getOneEmpresa(idEmpresa);
-        if (empresa.getAlumnoList().isEmpty()) {
-            List<Tutor> tutoresEmpresa = empresa.getTutorList();
-            tutoresEmpresa.forEach(tutor->{
-                service.actualizarTutor(tutor);
-            });
-            service.borrarEmpresa(empresa);
+    public String borrarEmpresa(@PathVariable(value = "id") Integer idEmpresa) {
+        Empresa empresa = new Empresa(idEmpresa);
+
+        List<Alumno> alumnos = service.getAlumnos();
+        for (int i = 0; i < alumnos.size(); i++) {
+            if (alumnos.get(i).getEmpresaIdEmpresa().getIdEmpresa()==empresa.getIdEmpresa()) {
+                alumnos.get(i).setEmpresaIdEmpresa(new Empresa(1));
+            }
         }
+
+        service.borrarEmpresa(empresa);
         return "redirect:/lista_empresas";
     }
+
     
-    /*
     @RequestMapping("/empresa_edit/{id}")
     public String editEmpresa(@PathVariable(value="id") Integer idEmpresa, Model modelo){
-        Empresa empresaBase = service.getOneEmpresa(idEmpresa);
+        Empresa empresaBase = service.getEmpresa(idEmpresa);
         modelo.addAttribute("empresa",empresaBase);
         System.out.println(empresaBase.getNombre());
         return "/taller_edit";
     }
-    */
-    
-    // Leer XMLO
+     
 }

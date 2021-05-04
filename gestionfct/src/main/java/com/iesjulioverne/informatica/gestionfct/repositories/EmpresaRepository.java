@@ -22,4 +22,6 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Integer> {
     
     @Query("select e from Empresa e where e.nombre=?1")
     public Empresa verEmpresaNombre(String nombre);
+
+    public void update(Integer idEmpresa, String nombre);
 }

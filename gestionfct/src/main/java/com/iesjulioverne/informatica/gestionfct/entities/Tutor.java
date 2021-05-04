@@ -8,6 +8,7 @@ package com.iesjulioverne.informatica.gestionfct.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,7 +45,7 @@ public class Tutor implements Serializable {
     private String nombre;
     @Column(name = "observaciones")
     private String observaciones;
-    @OneToMany(mappedBy = "idTutor")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "TutoridTutor")
     private List<Alumno> alumnoList;
 
     public Tutor() {
@@ -110,10 +111,6 @@ public class Tutor implements Serializable {
     @Override
     public String toString() {
         return "com.iesjulioverne.informatica.gestionfct.entities.Tutor[ idTutor=" + idTutor + " ]";
-    }
-
-    public void setEmpresaidEmpresa(Empresa empresa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

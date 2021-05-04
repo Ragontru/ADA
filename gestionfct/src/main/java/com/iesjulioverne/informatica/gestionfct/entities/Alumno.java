@@ -46,12 +46,12 @@ public class Alumno implements Serializable {
     private String correo;
     @Column(name = "observaciones")
     private String observaciones;
-    @JoinColumn(name = "id_empresa", referencedColumnName = "id_empresa")
-    @ManyToOne
-    private Empresa idEmpresa;
-    @JoinColumn(name = "id_tutor", referencedColumnName = "id_tutor")
-    @ManyToOne
-    private Tutor idTutor;
+    @JoinColumn(name = "Empresa_id_empresa", referencedColumnName = "id_empresa")
+    @ManyToOne(optional = false)
+    private Empresa empresaidempresa;
+    @JoinColumn(name = "Tutor_id_tutor", referencedColumnName = "id_tutor")
+    @ManyToOne(optional = false)
+    private Tutor tutoridtutor;
 
     public Alumno() {
     }
@@ -92,20 +92,20 @@ public class Alumno implements Serializable {
         this.observaciones = observaciones;
     }
 
-    public Empresa getIdEmpresa() {
-        return idEmpresa;
+    public Empresa getEmpresaIdEmpresa() {
+        return empresaidempresa;
     }
 
-    public void setIdEmpresa(Empresa idEmpresa) {
-        this.idEmpresa = idEmpresa;
+    public void setIdEmpresa(Empresa empresaidempresa) {
+        this.empresaidempresa = empresaidempresa;
     }
 
-    public Tutor getIdTutor() {
-        return idTutor;
+    public Tutor getTutorIdTutor() {
+        return tutoridtutor;
     }
 
-    public void setIdTutor(Tutor idTutor) {
-        this.idTutor = idTutor;
+    public void setTutorIdTutor(Tutor idTutor) {
+        this.tutoridtutor = idTutor;
     }
 
     @Override
@@ -131,10 +131,6 @@ public class Alumno implements Serializable {
     @Override
     public String toString() {
         return "com.iesjulioverne.informatica.gestionfct.entities.Alumno[ idAlumno=" + idAlumno + " ]";
-    }
-
-    public void addEmpresa(Integer[] selectEmpresa) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

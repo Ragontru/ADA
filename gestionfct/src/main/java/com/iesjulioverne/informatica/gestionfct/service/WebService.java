@@ -32,69 +32,84 @@ public class WebService {
     }
     
     // ---------- CRUD Alumno ----------
-    public void guardarAlumno(Alumno alumno){
+    // Crear alumno
+    public void crearAlumno(Alumno alumno){
         aluRepository.save(alumno);
     }
     
+    // Actualizar alumno
+    public void actualizarAlumno(Alumno alumno){
+        aluRepository.update(alumno.getIdAlumno(), alumno.getNombre());
+    }
+    
+    // Borrar alumno
     public void borrarAlumno(Alumno alumno) {
         aluRepository.delete(alumno);
     }
-       
+    
+    // Listar todos los alumnos
     public List<Alumno> getAlumnos(){
         List<Alumno> alumnos = aluRepository.findAll();
         return alumnos;
     }
 
-    public Alumno getOneAlumno(Integer idAlumno) {
+    // Listar un alumno
+    public Alumno getAlumno(Integer idAlumno) {
         return aluRepository.getOne(idAlumno);
     }
     
-    public void actualizarAlumno(Alumno alumno){
-        aluRepository.updateAlumno(alumno.getIdAlumno(), alumno.getNombre());
-    }
-    
     // ---------- CRUD Tutor ----------
-    public void guardarTutor(Tutor tutor) {
+    // Crear tutor
+    public void crearTutor(Tutor tutor) {
         tutRepository.save(tutor);
     }
     
+    // Actualizar tutor
+    public void actualizarTutor(Tutor tutor){
+        tutRepository.update(tutor.getIdTutor(), tutor.getNombre());
+    }
+    
+    // Borrar tutor
     public void borrarTutor(Tutor tutor) {
         tutRepository.delete(tutor);
     }
     
+    // Listar todos los tutores
     public List<Tutor> getTutores() {
         List<Tutor> tutores = tutRepository.findAll();
         return tutores;
     }
     
-    public Tutor getOneTutor(Integer idTutor) {
+    // Listar un tutor
+    public Tutor getTutor(Integer idTutor) {
         return tutRepository.getOne(idTutor);
     }
     
-    public void actualizarTutor(Tutor tutor){
-        tutRepository.updateTutor(tutor.getIdTutor(), tutor.getNombre());
-    }
-    
     // ---------- CRUD Empresa ----------
-    public void guardarEmpresa(Empresa empresa) {
+    // Crear empresa
+    public void crearEmpresa(Empresa empresa) {
         empRepository.save(empresa);
     }
     
+    // Actualizar empresa
+    public void actualizarEmpresa(Empresa empresa){
+        empRepository.update(empresa.getIdEmpresa(), empresa.getNombre());
+    }
+    
+    // Borrar empresa
     public void borrarEmpresa(Empresa empresa) {
         empRepository.delete(empresa);
     }
     
-    public Empresa verEmpresaNombre(Empresa empresa){
-        return empRepository.verEmpresaNombre(empresa.getNombre());
-    }
-    
+    // Listar todas las empresas
     public List<Empresa> getEmpresas() {
         List<Empresa> empresas = empRepository.findAll();
         return empresas;
     }
   
-    public Empresa getOneEmpresa(Integer idEmpresa) {
+    // Listar una empresa
+    public Empresa getEmpresa(Integer idEmpresa) {
         return empRepository.getOne(idEmpresa);
     }
-    
+
 }

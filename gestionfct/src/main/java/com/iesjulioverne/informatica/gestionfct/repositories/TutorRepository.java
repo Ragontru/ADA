@@ -26,4 +26,6 @@ public interface TutorRepository extends JpaRepository<Tutor, Integer> {
     @Modifying
     @Query("Update Tutor set nombre=?2 where idTutor=?1")
     public void updateTutor(Integer idAlu, String nombre);
+
+    public void update(Integer idTutor, String nombre);
 }
