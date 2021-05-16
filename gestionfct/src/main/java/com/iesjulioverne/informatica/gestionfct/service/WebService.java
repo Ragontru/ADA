@@ -47,13 +47,13 @@ public class WebService {
         aluRepository.delete(alumno);
     }
     
-    // Listar todos los alumnos
+    // Mostrar todos los alumnos
     public List<Alumno> getAlumnos(){
         List<Alumno> alumnos = aluRepository.findAll();
         return alumnos;
     }
 
-    // Listar un alumno
+    // Mostrar un alumno
     public Alumno getAlumno(Integer idAlumno) {
         return aluRepository.getOne(idAlumno);
     }

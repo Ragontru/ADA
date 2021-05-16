@@ -29,8 +29,15 @@ public class InicioController {
         this.service = gestService;
     }
 
-    // ---------- Peticiones de alumno ----------
+    // -- Inicio
     @RequestMapping("/")
+    public String inicio() {
+        return "inicio";
+    }
+
+    // ---------- Peticiones de alumno ----------
+    // Muestra todos los alumnos
+    @RequestMapping("/ver_alumnos")
     public String listarAlumnos(Model model) {
 
         List<Alumno> alumnos = service.getAlumnos();
@@ -39,6 +46,7 @@ public class InicioController {
         return "listar_alumnos";
     }
 
+    // Crea un alumno
     @RequestMapping("/crear_alumno")
     public String crearAlumno(Model modelo) {
         Alumno alumno = new Alumno();
@@ -49,12 +57,13 @@ public class InicioController {
         return "crear_alumno";
     }
 
+    // Guarda un alumno
     @RequestMapping("/guardar_alumno")
     public String guardarAlumno(Alumno alumno) {
 
-        if (alumno.getIdEmpresa() == null || alumno.getIdTutor() == null) {
-            alumno.setIdEmpresa(new Empresa(1));
-            alumno.setIdTutor(new Tutor(1));
+        if (alumno.getEmpresaIdEmpresa() == null || alumno.getTutorIdTutor() == null) {
+            alumno.setEmpresaIdEmpresa(new Empresa(1));
+            alumno.setTutorIdTutor(new Tutor(1));
             service.crearAlumno(alumno);
             return "redirect:/";
         } else {
@@ -64,6 +73,7 @@ public class InicioController {
         }
     }
 
+    // Borrar un alumno
     @RequestMapping("borrar_alumno/{id}")
     public String borrarAlumno(@PathVariable(value = "id") Integer idAlumno) {
         Alumno alumno = new Alumno(idAlumno);
@@ -71,6 +81,7 @@ public class InicioController {
         return "redirect:/";
     }
 
+    // Actualiza un alumno
     @RequestMapping("/alumno_edit/{id}")
     public String editAlumno(@PathVariable(value = "id") Integer idAlumno, Model modelo) {
         Alumno alumnoBase = service.getAlumno(idAlumno);
@@ -83,13 +94,15 @@ public class InicioController {
     }
 
     // ---------- Peticiones de tutor ----------
+    // Muestra todos los tutores
     @RequestMapping("/listar_tutores")
     public String listarTutores(Model modelo) {
         List<Tutor> tutores = service.getTutores();
         modelo.addAttribute("tutores", tutores);
-        return "listar_tutores";
+        return "/listar_tutores";
     }
 
+    // Crea un tutor
     @RequestMapping("/crear_tutor")
     public String crearTutor(Model modelo) {
         Tutor tutor = new Tutor();
@@ -97,19 +110,21 @@ public class InicioController {
         return "crear_tutor";
     }
 
+    // Guarda un tutor
     @RequestMapping("/guardar_tutor")
     public String guardarTutor(Tutor tutor) {
         service.crearTutor(tutor);
         return "redirect:/listar_tutores";
     }
 
+    // Borra un tutor
     @RequestMapping("/borrar_tutor/{id}")
     public String borrarTutor(@PathVariable(value = "id") Integer idTutor, Model modelo) {
         Tutor tutor = new Tutor(idTutor);
 
         List<Alumno> alumnos = service.getAlumnos();
         for (int i = 0; i < alumnos.size(); i++) {
-            if (alumnos.get(i).getTutorIdTutor().getIdTutor() != tutor.getIdTutor()) {
+            if (tutor.getIdTutor() == alumnos.get(i).getTutorIdTutor().getIdTutor()) {
                 alumnos.get(i).setTutorIdTutor(new Tutor(1));
             }
         }
@@ -118,6 +133,7 @@ public class InicioController {
         return "redirect:/listar_tutores";
     }
 
+    // Actualizar tutor
     @RequestMapping("/tutor_edit/{id}")
     public String editTutor(@PathVariable(value = "id") Integer idTutor, Model modelo) {
         Tutor tutorBase = service.getTutor(idTutor);
@@ -127,6 +143,7 @@ public class InicioController {
     }
 
     // ---------- Peticiones de empresas ----------
+    // Muestra todas las empresas
     @RequestMapping("/listar_empresas")
     public String listarEmpresas(Model modelo) {
         List<Empresa> empresas = service.getEmpresas();
@@ -134,6 +151,7 @@ public class InicioController {
         return "/listar_empresas";
     }
 
+    // Crea una empresa
     @RequestMapping("/crear_empresa")
     public String crearEmpresa(Model modelo) {
         Empresa empresa = new Empresa();
@@ -141,19 +159,21 @@ public class InicioController {
         return "crear_empresa";
     }
 
+    // Guarda una empresa
     @RequestMapping("/guardar_empresa")
     public String guardaEmpresa(Empresa empresa) {
         service.crearEmpresa(empresa);
         return "redirect:/";
     }
 
+    // Borra una empresa
     @RequestMapping("/borrar_empresa/{id}")
     public String borrarEmpresa(@PathVariable(value = "id") Integer idEmpresa) {
         Empresa empresa = new Empresa(idEmpresa);
 
         List<Alumno> alumnos = service.getAlumnos();
         for (int i = 0; i < alumnos.size(); i++) {
-            if (alumnos.get(i).getEmpresaIdEmpresa().getIdEmpresa()==empresa.getIdEmpresa()) {
+            if (alumnos.get(i).getEmpresaIdEmpresa().getIdEmpresa() == empresa.getIdEmpresa()) {
                 alumnos.get(i).setEmpresaIdEmpresa(new Empresa(1));
             }
         }
@@ -162,13 +182,13 @@ public class InicioController {
         return "redirect:/lista_empresas";
     }
 
-    
+    // Actualiza una empresa
     @RequestMapping("/empresa_edit/{id}")
-    public String editEmpresa(@PathVariable(value="id") Integer idEmpresa, Model modelo){
+    public String editEmpresa(@PathVariable(value = "id") Integer idEmpresa, Model modelo) {
         Empresa empresaBase = service.getEmpresa(idEmpresa);
-        modelo.addAttribute("empresa",empresaBase);
+        modelo.addAttribute("empresa", empresaBase);
         System.out.println(empresaBase.getNombre());
-        return "/taller_edit";
+        return "/emrpesa_edit";
     }
-     
+
 }

@@ -96,7 +96,7 @@ public class Alumno implements Serializable {
         return empresaidempresa;
     }
 
-    public void setIdEmpresa(Empresa empresaidempresa) {
+    public void setEmpresaIdEmpresa(Empresa empresaidempresa) {
         this.empresaidempresa = empresaidempresa;
     }
 

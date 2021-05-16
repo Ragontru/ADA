@@ -8,20 +8,13 @@ package com.iesjulioverne.informatica.gestionfct.repositories;
 import com.iesjulioverne.informatica.gestionfct.entities.Empresa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Raquel
  */
-@Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Integer> {
-    
-    @Query("select e from Empresa e")
-    public Empresa verUsuario();
-    
-    @Query("select e from Empresa e where e.nombre=?1")
-    public Empresa verEmpresaNombre(String nombre);
 
+    @Query("Update Empresa SET nombre=?2 WHERE idEmpresa=?1")
     public void update(Integer idEmpresa, String nombre);
 }
