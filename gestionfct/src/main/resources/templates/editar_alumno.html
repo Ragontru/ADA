@@ -4,11 +4,12 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+
 <html>
     <head>
-        <title>Lista de alumnos</title>
+        <title>Editar un alumno</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
@@ -21,8 +22,7 @@ and open the template in the editor.
                 </div>
 
                 <div class= "col-xl-2 ">
-                    <h1 align="center"  >ALUMNOS</h1>
-                    
+                    <h1 align="center" >ALUMNOS</h1>
                     <br>
                     <br>
 
@@ -30,7 +30,8 @@ and open the template in the editor.
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown1" data-toggle="dropdown">
                             ALUMNO
                         </button>
-                        <div class="dropdown-menu">                            
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/listar_alumnos"  role="button">Listar alumnos</a>
                             <a class="dropdown-item" href="/crear_alumno"  role="button">Nuevo alumno</a>
                         </div>
                     </div>  
@@ -50,7 +51,6 @@ and open the template in the editor.
 
                     <br>
                     <br>
-
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown1" data-toggle="dropdown">
                             EMPRESAS
@@ -60,44 +60,44 @@ and open the template in the editor.
                             <a class="dropdown-item" href="/crear_empresa"  role="button">Nueva empresa</a>
                         </div>
                     </div>
-
                     <br>
                     <br>
                 </div>
+                
+            </div>
 
 
-                <div class="col-xl-10 ">
-                    <h1 align="center"> LISTADO </h1>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID Alumno</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Nombre profesor</th>
-                                <th scope="col">Nombre empresa</th>
-                                <th scope=""></th>
-                                <th scope=""></th>
+            <div class="col-xl-10 ">
+                <h1 align="center">Editar un alumno</h1>
+                <form th:action="@{/guardar_alumno}" method="post" th:object="${alumno}">
+                    <div class="form-group">
+                        <label for="InputId">Id</label>
+                        <input type="number" class="form-control" id="InputId" th:field="*{idAlumno}" readonly="true">
 
-                            </tr>
-                        </thead>
+                        <label for="InputNombre">Nombre</label>
+                        <input type="text" class="form-control" id="InputNombre" th:field="*{nombre}">
 
-                        <tbody>
-                        <div th:each="alumno:${alumnos}">
-                            <tr>
-                                <th scope="row" th:text="${alumno.idAlumno}"></th>
-                                <td th:text="${alumno.nombre}"></td>
-                                <td th:text="${alumno.tutoridtutor.nombre}"></td>
-                                <td th:text="${alumno.empresaidempresa.nombre}"></td>
-                                <td><a class="btn btn-warning btn-sm" th:href="@alumno_edit/}+${alumno.idAlumno}" role="button">Editar Alumno</a></td>
-                                <td><a class="btn btn-danger btn-sm" th:href="@{borrar_alumno/}+${alumno.idAlumno}" role="button">Eliminar Alumno</a></td>
-                            </tr>
-                        </div>
-                        </tbody>
-                    </table>
-                </div>
+                        <label for="tutor" class="form-label">Id del Tutor</label>
+                        <select th:field="*{tutoridtutor.idTutor}" class="form-control" id="tutor">
+                            <option th:each="tutoridtutor:${tutores}"
+                                    th:value="${tutoridtutor.idTutor}"
+                                    th:text="${tutoridtutor.nombre}"
+                                    />
+
+                        </select>
+                        <label for="empresa" class="form-label">Id de la empresa</label>
+                        <select th:field="*{empresaidempresa.idEmpresa}" class="form-control" id="empresa">
+                            <option th:each="empresaidempresa:${empresas}"
+                                    th:value="${empresaidempresa.idEmpresa}"
+                                    th:text="${empresaidempresa.nombre}"
+                                    />
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
             </div>
         </div>
-
         <!--Necesario para dropdown-->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

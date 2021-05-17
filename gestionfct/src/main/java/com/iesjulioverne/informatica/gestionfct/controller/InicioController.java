@@ -37,7 +37,7 @@ public class InicioController {
 
     // ---------- Peticiones de alumno ----------
     // Muestra todos los alumnos
-    @RequestMapping("/ver_alumnos")
+    @RequestMapping("/listar_alumnos")
     public String listarAlumnos(Model model) {
 
         List<Alumno> alumnos = service.getAlumnos();
@@ -188,7 +188,7 @@ public class InicioController {
         Empresa empresaBase = service.getEmpresa(idEmpresa);
         modelo.addAttribute("empresa", empresaBase);
         System.out.println(empresaBase.getNombre());
-        return "/emrpesa_edit";
+        return "/empresa_edit";
     }
 
 }
