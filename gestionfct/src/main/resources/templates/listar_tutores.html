@@ -20,53 +20,38 @@ and open the template in the editor.
                     <hr size="2px" color="black" />
                 </div>
 
-                <div class= "col-xl-2 ">
-                    <h1 align="center"  >TUTORES</h1>
+                <div class= "col-xl-2 ">          
+                    <br>
+                    <br>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ALUMNO</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/listar_alumnos"  role="button">Listar alumnos</a>
+                                <a class="dropdown-item" href="/crear_alumno"  role="button">Nuevo alumno</a>
+                            </div>
+                        </li>
 
-                    <br>
-                    <br>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">TUTOR</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/listar_tutores"  role="button">Listar tutores</a>
+                                <a class="dropdown-item" href="/crear_tutor"  role="button">Nuevo tutor</a>
+                            </div>
+                        </li>
 
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown1" data-toggle="dropdown">
-                            ALUMNO
-                        </button>
-                        <div class="dropdown-menu">                            
-                            <a class="dropdown-item" href="/listar_alumnos"  role="button">Listar alumnos</a>
-                            <a class="dropdown-item" href="/crear_alumno"  role="button">Nuevo alumno</a>
-                        </div>
-                    </div> 
-
-                    <br>
-                    <br>
-
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown1" data-toggle="dropdown">
-                            TUTORES
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/crear_tutor"  role="button">Nuevo tutor</a>
-                        </div>
-                    </div>
-
-                    <br>
-                    <br>
-
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown1" data-toggle="dropdown">
-                            EMPRESAS
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/listar_empresas"  role="button">Listar empresas</a>
-                            <a class="dropdown-item" href="/crear_empresa"  role="button">Nueva empresa</a>
-                        </div>
-                    </div>
-                    
-                    <br>
-                    <br>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">EMPRESA</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/listar_empresas"  role="button">Listar empresas</a>
+                                <a class="dropdown-item" href="/crear_empresa"  role="button">Nueva empresa</a>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="col-xl-10 ">
-                    <h1 align="center"> LISTADO </h1>
+                    <h1 align="center"> Listado de tutores </h1>
                     <table class="table">
                         <thead>
                             <tr>
