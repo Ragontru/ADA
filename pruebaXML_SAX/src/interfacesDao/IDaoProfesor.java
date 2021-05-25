@@ -3,18 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xml.interfacesDao;
+package interfacesDao;
 
 import java.util.ArrayList;
-import com.iesjulioverne.informatica.gestionfct.entities.Empresa;
+import modelo.Profesor;
 
 /**
  *
- * @author Raquel
+ * @author enrique
  */
-public interface IDaoEmpresa {
+public interface IDaoProfesor {
     
-    public void guardarEmpresa(Empresa e);
+    public void guardarProfesor(Profesor p);
+    public ArrayList<Profesor> verProfesores();
     
-    public ArrayList<Empresa> verEmpresas();
+    
 }

@@ -16,5 +16,5 @@ public interface IDaoTutor {
     
     public void guardarTutor(Tutor t);
     
-    public ArrayList<Tutor> listar_tutores();
+    public ArrayList<Tutor> verTutores();
 }

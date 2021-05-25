@@ -16,5 +16,5 @@ public interface IDaoAlumno {
     
     public void guardarAlumno(Alumno a);
     
-    public ArrayList<Alumno> listar_alumnos();
+    public ArrayList<Alumno> verAlumnos();
 }

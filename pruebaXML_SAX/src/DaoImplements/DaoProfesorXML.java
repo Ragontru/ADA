@@ -3,29 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package xml.DaoImplements;
+package DaoImplements;
 
-import com.semanacultural.webservice.entidades.Profesor;
-import com.semanacultural.webservice.entidades.Taller;
-import xml.handler.TallerHandlerXML;
+import utilidades.ProfesorHandlerXML;
+import interfacesDao.IDaoProfesor;
 import java.util.ArrayList;
-import xml.interfacesDao.IDaoTaller;
+import modelo.Profesor;
 
 /**
  *
  * @author enrique
  */
-public class DaoTallerXML extends DaoXML implements IDaoTaller {
+public class DaoProfesorXML extends DaoXML implements IDaoProfesor {
+    
 
     private String nombreFichero;
-    private  TallerHandlerXML handler;
+    private  ProfesorHandlerXML handler;
   
     
-    public DaoTallerXML(String nombreFichero){
+    public DaoProfesorXML(String nombreFichero){
        
         
-        super(new TallerHandlerXML());
-        handler=(TallerHandlerXML)this.getHandler();
+        super(new ProfesorHandlerXML());
+        handler=(ProfesorHandlerXML)this.getHandler();
         this.nombreFichero=nombreFichero;
 
     }
@@ -35,10 +35,11 @@ public class DaoTallerXML extends DaoXML implements IDaoTaller {
        
     }
 
-    public ArrayList<Taller> verTalleres(){
+    public ArrayList<Profesor> verProfesores(){
+      
         try {
             this.leerXML(nombreFichero);
-            return handler.getTalleres();
+            return handler.getProfesores();
         } catch (Exception ex) {
            return null;
         }
