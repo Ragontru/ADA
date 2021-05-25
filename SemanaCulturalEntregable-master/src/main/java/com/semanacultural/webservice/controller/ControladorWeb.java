@@ -162,6 +162,7 @@ public class ControladorWeb {
         service.borrarTaller(taller);
         return"redirect:/";
     }
+    
      @RequestMapping("/borrar_taller/{id}")
     public String borrarTaller(@PathVariable(value="id") Integer idTaller){
         Taller taller= service.getOneTaller(idTaller);
@@ -201,6 +202,7 @@ public class ControladorWeb {
         });
         return "redirect:/listar_talleres";
     }
+    
     @RequestMapping("/borrar_fichero")
     public String borrarFichero(){
         DaoTallerXML dp= new DaoTallerXML("C:\\Users\\usuario\\Documents\\GitHub\\SemanaCulturalEntregable\\src\\main\\java\\xml\\archivo\\profesoresJulioVerne.xml");

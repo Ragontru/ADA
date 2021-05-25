@@ -58,6 +58,11 @@ public class WebService {
         return aluRepository.getOne(idAlumno);
     }
     
+    // Nombre de alumnos
+    public List<Alumno> verAlumnoNombre(Alumno alumno){
+        return aluRepository.verAlumnoNombre(alumno.getNombre());
+    }
+    
     // ---------- CRUD Tutor ----------
     // Crear tutor
     public void crearTutor(Tutor tutor) {

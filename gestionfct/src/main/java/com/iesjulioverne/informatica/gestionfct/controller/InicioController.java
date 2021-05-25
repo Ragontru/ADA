@@ -13,8 +13,11 @@ import com.iesjulioverne.informatica.gestionfct.entities.Alumno;
 import com.iesjulioverne.informatica.gestionfct.entities.Empresa;
 import com.iesjulioverne.informatica.gestionfct.entities.Tutor;
 import com.iesjulioverne.informatica.gestionfct.service.WebService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
+import xml.DaoImplements.DaoAlumnoXML;
+import xml.DaoImplements.DaoXML;
 
 /**
  *
@@ -161,7 +164,7 @@ public class InicioController {
 
     // Guarda una empresa
     @RequestMapping("/guardar_empresa")
-    public String guardaEmpresa(Empresa empresa) {
+    public String guardarEmpresa(Empresa empresa) {
         service.crearEmpresa(empresa);
         return "redirect:/";
     }
@@ -190,5 +193,42 @@ public class InicioController {
         System.out.println(empresaBase.getNombre());
         return "/empresa_edit";
     }
+
+    // ---------- XML ----------
+        // ALUMNOS
+            // Leer XML
+    @RequestMapping("/leer_alumnos")
+    public String leerAlumnos() {
+        // Cambiar la ruta
+        DaoAlumnoXML dp = new DaoAlumnoXML("C:\\Users\\Raquel\\Desktop\\Enrique\\ADA\\gestionfct\\src\\main\\java\\xml\\DaoImplements\\alumnos.xml");
+        ArrayList<Alumno> alumnos = dp.verAlumnos();
+        alumnos.forEach((alumno) -> {
+            service.crearAlumno(alumno);
+        });
+        
+        return "redirect:/listar_alumnos";
+    }
+    
+    /*
+            // Borrar XML
+    @RequestMapping("/borrar_alumnos")
+    public String borrarAlumnos(){
+        // Cambiar la ruta
+        DaoAlumnoXML dp = new DaoAlumnoXML("C:\\Users\\Raquel\\Desktop\\Enrique\\ADA\\gestionfct\\src\\main\\java\\xml\\DaoImplements\\alumnos.xml");
+        ArrayList<Alumno> alumnos = dp.verAlumnos();
+        ArrayList<Alumno> alumnos2 = new ArrayList<>();
+        
+        alumnos.forEach(alumno->{
+            List<Alumno> al = service.verAlumnoNombre(alumno);
+            alumnos2.addAll(service.verAlumnoNombre(alumno));
+        });
+        
+        alumnos2.forEach(alumno->{
+            if (alumno.get//Alumno//List().isEmpty()) {
+               
+            }
+        });
+    }
+*/
 
 }
